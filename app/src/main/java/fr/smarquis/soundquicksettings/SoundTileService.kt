@@ -10,10 +10,11 @@ import android.view.WindowManager.LayoutParams.FLAG_DIM_BEHIND
 
 class SoundTileService : TileService() {
     override fun onClick() {
-        getSystemService(AudioManager::class.java).adjustVolume(ADJUST_SAME, FLAG_SHOW_UI)
-        AlertDialog.Builder(this).create().apply {
-            window?.clearFlags(FLAG_DIM_BEHIND)
-            setOnShowListener(DialogInterface::dismiss)
-        }.runCatching(::showDialog)
+    getSystemService(AudioManager::class.java)
+        .adjustStreamVolume(AudioManager.STREAM_MUSIC, AudioManager.ADJUST_SAME, AudioManager.FLAG_SHOW_UI)
+    AlertDialog.Builder(this).create().apply {
+        window?.clearFlags(FLAG_DIM_BEHIND)
+        setOnShowListener(DialogInterface::dismiss)
+    }.runCatching(::showDialog)
     }
 }
